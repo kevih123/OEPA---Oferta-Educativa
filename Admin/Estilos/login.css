@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f4f7;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.login-card {
+    width: 850px;
+    max-width: 100%;
+    margin: auto;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    overflow: hidden;
+}
+
+/* Encabezado */
+
+.login-header {
+    background: #0755a5;
+    color: white;
+
+    padding: 18px 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-header h1 {
+    font-size: 20px;
+}
+
+.login-header span {
+    font-size: 14px;
+}
+
+/* Contenido */
+
+.login-content {
+    display: flex;
+    min-height: 400px;
+}
+
+/* Imagen */
+
+.login-image {
+    width: 50%;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Formulario */
+
+#loginForm {
+    width: 50%;
+
+    padding: 45px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#loginForm h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #444;
+}
+
+.input-group input {
+    height: 40px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    padding: 0 12px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #0755a5;
+}
+
+#loginForm button {
+    height: 42px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #16b817;
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#loginForm button:hover {
+    background: #119d12;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .login-content {
+        flex-direction: column;
+    }
+
+    .login-image,
+    #loginForm {
+        width: 100%;
+    }
+
+    .login-image {
+        height: 200px;
+    }
+
+    #loginForm {
+        padding: 30px;
+    }
+}
