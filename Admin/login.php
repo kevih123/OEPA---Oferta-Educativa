@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +27,7 @@
                     <img src="Imagenes/logo.jpeg" alt="Universidades">
                 </div>
 
-                <form id="loginForm">
+                <form method="post" id="loginForm" action="validacion.php">
 
                     <h2>Administrador</h2>
 
@@ -34,7 +35,7 @@
                         <label for="usuario">Usuario</label>
                         <input
                             type="text"
-                            id="usuario"
+                            autocomplete="off" name="usuario"
                             placeholder="Usuario"
                             required
                         >
@@ -44,7 +45,7 @@
                         <label for="contrasena">Contraseña</label>
                         <input
                             type="password"
-                            id="contrasena"
+                            autocomplete="off" name="contra"
                             placeholder="Contraseña"
                             required
                         >
@@ -53,7 +54,9 @@
                     <button type="submit" >
                         Iniciar sesión
                     </button>
-
+                    <button type="button" onclick="location.href='Paginaprincipal.php'">
+    Regresar a página principal
+</button>
                 </form>
 
             </div>
@@ -62,7 +65,7 @@
 
     </main>
 
-    <script src="login.js"></script>
+    
 
 </body>
 </html>

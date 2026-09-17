@@ -2,7 +2,7 @@
 
 $server   = "localhost";
 $user     = "root";
-$password = "Dilialaide123";
+$password = "";
 $db       = "oepa";
 
 $conectar = mysqli_connect($server, $user, $password, $db) or die("Error al conectar");

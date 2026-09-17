@@ -20,7 +20,7 @@ if (!is_numeric($id_ca) || !is_numeric($ida) || empty($nombre)) {
 $server = "localhost";
 $db     = "oepa";
 $user   = "root";
-$pass   = "Dilialaide123";
+$pass   = "";
 
 $conectar = mysqli_connect($server, $user, $pass, $db);
 

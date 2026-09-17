@@ -12,7 +12,7 @@
     $server = "localhost";
     $db = "oepa";
     $user = "root";
-    $pass = "Dilialaide123";
+    $pass = "";
     $conectar = mysqli_connect($server, $user, $pass,$db);
     if(mysqli_connect_errno()){
         echo "no se pudo conectar a la bd";

@@ -11,7 +11,7 @@ if (!is_numeric($id_uni)) {
 $server = "localhost";
 $db     = "oepa";
 $user   = "root";
-$pass   = "Dilialaide123";
+$pass   = "";
 
 $conectar = mysqli_connect($server, $user, $pass, $db);
 
