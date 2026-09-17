@@ -13,20 +13,7 @@ if (!is_numeric($id_ca)) {
     exit();
 }
 
-$server = "localhost";
-$db     = "oepa";
-$user   = "root";
-$pass   = "";
-
-$conectar = mysqli_connect($server, $user, $pass, $db);
-
-if (mysqli_connect_errno()) {
-    echo json_encode([
-        "success" => false,
-        "mensaje" => "No se pudo conectar a la BD"
-    ]);
-    exit();
-}
+include "../conn2.php";
 
 // borrar
 $id_ca = intval($id_ca);

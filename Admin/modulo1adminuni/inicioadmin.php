@@ -1,15 +1,7 @@
 <?php
+include '../validar_sesion.php';
 // conectar
-$server = "localhost";
-$db     = "oepa";
-$user   = "root";
-$pass   = "";
-
-$conectar = mysqli_connect($server, $user, $pass, $db);
-
-if (mysqli_connect_errno()) {
-    die("No se pudo conectar a la base de datos");
-}
+include '../conn.php';
 
 // consulta para universidades
 $sql = "SELECT * FROM universidades ORDER BY nombre_institucion ASC";

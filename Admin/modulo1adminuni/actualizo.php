@@ -1,4 +1,5 @@
 <?php
+
 header("Content-Type: application/json; charset=utf-8");
 
 $id_uni = $_POST["id_uni"]      ?? 0;
@@ -21,20 +22,7 @@ if (!is_numeric($id_uni) || empty($nombre)) {
     exit();
 }
 
-$server = "localhost";
-$db     = "oepa";
-$user   = "root";
-$pass   = "";
-
-$conectar = mysqli_connect($server, $user, $pass, $db);
-
-if (mysqli_connect_errno()) {
-    echo json_encode([
-        "success" => false,
-        "mensaje" => "No se pudo conectar a la BD"
-    ]);
-    exit();
-}
+include '../conn2.php';
 
 $id_uni = intval($id_uni);
 

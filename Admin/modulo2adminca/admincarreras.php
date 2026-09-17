@@ -1,16 +1,6 @@
 <?php
 
-$server   = "localhost";
-$user     = "root";
-$password = "";
-$db       = "oepa";
-
-$conectar = mysqli_connect($server, $user, $password, $db) or die("Error al conectar");
-
-if (mysqli_connect_errno()) {
-    die("No conectó");
-}
-
+include '../conn.php';
 // consultas de carreras
 $instru = "SELECT 
               c.id_carrera,

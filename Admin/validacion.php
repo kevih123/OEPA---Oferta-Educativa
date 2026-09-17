@@ -1,54 +1,147 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="">
-    <title>Document</title>
-</head>
-<body >
-<?php  
+<?php
+// validacion.php
 
 $server = "localhost";
 $db     = "oepa";
 $user   = "root";
 $pass   = "";
-//evitar inserción sql
+
+// Conexión
 $conectar = mysqli_connect($server, $user, $pass, $db);
-$usua=$conectar->real_escape_string( $_POST['usuario']);
-$usuario=strtolower($usua);
-$contra=$conectar->real_escape_string( $_POST['contra']);
-
-
 if (mysqli_connect_errno()) {
     die("No se pudo conectar a la base de datos");
 }
 
-// consulta para universidades
-$sql = "SELECT count(*) as cuenta From administradores where user_name='$usuario' and password='$contra'";
-$res = mysqli_query($conectar, $sql);
-if($reg=$res->fetch_array()){
-        if($reg['cuenta']>0){
-           
-            header('location:../Admin/modulo1adminuni/inicioadmin.php');
-                   exit(); 
-                        
-                }
+// Obtener y sanitizar datos
+$usua = isset($_POST['usuario']) ? $_POST['usuario'] : '';
+$contra = isset($_POST['contra']) ? $_POST['contra'] : '';
+$usua = $conectar->real_escape_string($usua);
+$usuario = strtolower($usua);
+$contra = $conectar->real_escape_string($contra);
 
-         else{?>
-    <center><h1><?php echo 'Los datos son incorrectos';?></h1><button  onclick="top.location='login.php'">Regresar al login
-</button></center><?php
-    }       
-            }
-    
-    
-     mysqli_close($conectar);
-    
-    ?>
-    
+// Variable para controlar la vista
+$login_ok = false;
+$tried_login = false;
+$errorMessage = '';
+
+if (!empty($usuario) || !empty($contra)) {
+    $tried_login = true;
+    // Consulta (nota: en producción usar prepared statements y password hashing)
+    $sql = "SELECT count(*) as cuenta FROM administradores WHERE user_name='$usuario' AND password='$contra'";
+    $res = mysqli_query($conectar, $sql);
+    if ($res && $reg = $res->fetch_array()) {
+        if ($reg['cuenta'] > 0) {
+            $login_ok = true;
+        } else {
+            $errorMessage = 'Los datos son incorrectos';
+        }
+    } else {
+        $errorMessage = 'Error en la consulta de la base de datos';
+    }
+}
+
+mysqli_close($conectar);
+
+// Si login correcto, redirigir al panel (sin haber enviado HTML)
+if ($login_ok) {
+    header('Location: ../Admin/modulo1adminuni/inicioadmin.php');
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación</title>
+    <style>
+        /* Estilos simples para el modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .modal {
+            background: #fff;
+            padding: 20px;
+            max-width: 420px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal h2 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+        .modal p {
+            margin: 0 0 18px;
+            color: #333;
+        }
+        .modal .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .modal .btn:active { transform: translateY(1px); }
+    </style>
+</head>
+<body>
+
+<!-- Contenido de la página (opcional) -->
+<!-- Puedes dejar la página en blanco o mostrar algo aquí -->
+
+<!-- Modal -->
+<div id="errorModalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+        <h2 id="modalTitle">Error</h2>
+        <p id="modalMessage">Mensaje de error</p>
+        <button id="modalAccept" class="btn">Aceptar</button>
+    </div>
+</div>
+
+<script>
+    // Funciones para mostrar/ocultar modal
+    function showModal(message, title) {
+        var backdrop = document.getElementById('errorModalBackdrop');
+        var msg = document.getElementById('modalMessage');
+        var ttl = document.getElementById('modalTitle');
+        msg.textContent = message || 'Ocurrió un error';
+        ttl.textContent = title || 'Error';
+        backdrop.style.display = 'flex';
+        backdrop.setAttribute('aria-hidden', 'false');
+    }
+    function hideModal() {
+        var backdrop = document.getElementById('errorModalBackdrop');
+        backdrop.style.display = 'none';
+        backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    // Botón Aceptar: redirige al login
+    document.getElementById('modalAccept').addEventListener('click', function() {
+        hideModal();
+        // Redirigir al login
+        window.location.href = 'login.php';
+    });
+
+    // Si el usuario intentó iniciar sesión y hubo error, mostrar modal
+    <?php if ($tried_login && !$login_ok): ?>
+        document.addEventListener('DOMContentLoaded', function() {
+            showModal(<?php echo json_encode($errorMessage); ?>, 'Datos incorrectos');
+        });
+    <?php endif; ?>
+</script>
+
 </body>
 </html>
-    
     

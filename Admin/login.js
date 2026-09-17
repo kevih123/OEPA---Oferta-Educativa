@@ -7,3 +7,4 @@ loginForm.addEventListener("submit", function(event) {
     window.location.href = "modulo1adminuni/inicioadmin.php";
 
 });
+
