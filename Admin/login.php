@@ -90,7 +90,7 @@ if (isset($_SESSION['login_error'])) {
     </style>
 </head>
 <body>
-    <input type="image" class="icon" src="Imagenes/return-icon.png" onclick="location.href='Paginaprincipal.php'">
+    <input type="image" class="icon" src="Imagenes/return-icon.png" onclick="location.href='../Admin/modulo3home/Paginaprincipal.php'">
     
     <main class="login-container">
         <section class="login-card">

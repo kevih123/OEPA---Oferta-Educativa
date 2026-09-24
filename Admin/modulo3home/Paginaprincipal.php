@@ -1,16 +1,7 @@
 <?php
 
 // conectar
-$server = "localhost";
-$db     = "oepa";
-$user   = "root";
-$pass   = "";
-
-$conectar = mysqli_connect($server, $user, $pass, $db);
-
-if (mysqli_connect_errno()) {
-    die("No se pudo conectar a la base de datos");
-}
+require 'conn2.php'; 
 
 // consulta para universidades
 $sql = "SELECT * FROM universidades ORDER BY nombre_institucion ASC";
@@ -29,7 +20,7 @@ mysqli_close($conectar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador Universidad</title>
-    <link rel="stylesheet" href="../Admin/Estilos/general.css">
+    <link rel="stylesheet" href="../Estilos/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -41,11 +32,11 @@ mysqli_close($conectar);
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="buscador" placeholder="Busca Universidad">
             </div>
-            <a class="btn-primary"href='login.php'">¿Eres admin? </a>
+            <a class="btn-primary"href='../login.php'">¿Eres admin? </a>
         </div>
         <nav class="header-nav">
-            <a href="../modulo1adminuni/inicioadmin.php"class="nav-active">Universidades</a>
-            <a href="../modulo1adminuni/inicioadmin.php" >Carreras</a>
+            <a href="Paginaprincipal.php"class="nav-active">Universidades</a>
+            <a href="Carreras.php" >Carreras</a>
             
         </nav>
     </header> 
@@ -75,11 +66,11 @@ mysqli_close($conectar);
                                 alt="<?php echo htmlspecialchars($u['nombre_institucion']); ?>">
                         </div>
                         <p class="card-nombre">
-                            <input value="<?php echo $u['universidad_id']; ?>"type="hidden">
+                            
                             <?php echo htmlspecialchars($u['nombre_institucion']); ?>
                         </p>
 
-                        <button class="btn-outline btn-carreras" type=submit>Ver Carreras de la universidad</button>
+                        <button class="btn-outline btn-carreras" name="idu" value="<?php echo $u['universidad_id']; ?>" type=submit>Ver Carreras de la universidad</button>
 
                     </article>
                 <?php endforeach; ?>
@@ -88,5 +79,6 @@ mysqli_close($conectar);
         </section>
 
     </main></form>
+     <script src="buscador.js"></script>
 </body>
 </html>
