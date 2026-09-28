@@ -1,0 +1,58 @@
+.breadcrumb {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.breadcrumb a {
+    color: #1a252f;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #111;
+}
+
+.unis-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.uni-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #111; /* Estilo de borde como en la imagen 4 */
+}
+
+.uni-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #111;
+}
+
+.btn-detalles {
+    background-color: #e2e8f0;
+    color: #1a252f;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #111;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.btn-detalles:hover {
+    background-color: #cbd5e1;
+}

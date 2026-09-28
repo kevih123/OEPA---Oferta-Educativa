@@ -1,7 +1,7 @@
 <?php
 
 // conectar
-require 'conn2.php'; 
+require '../conn2.php'; 
 
 // consulta para universidades
 $sql = "SELECT * FROM universidades ORDER BY nombre_institucion ASC";
@@ -36,7 +36,7 @@ mysqli_close($conectar);
         </div>
         <nav class="header-nav">
             <a href="Paginaprincipal.php"class="nav-active">Universidades</a>
-            <a href="Carreras.php" >Carreras</a>
+            <a href="CarrerasAreas.php" >Carreras</a>
             
         </nav>
     </header> 

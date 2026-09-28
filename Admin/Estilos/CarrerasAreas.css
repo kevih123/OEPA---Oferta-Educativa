@@ -1,0 +1,108 @@
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.accordion-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #f0f4f8;
+}
+
+.accordion-header .area-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1a252f;
+    margin: 0;
+}
+
+.accordion-header .area-desc {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+.accordion-header i.icon-chevron {
+    font-size: 1.2rem;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+/* Rotación del ícono al desplegar */
+.accordion-item.active .icon-chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #fafafa;
+}
+
+.carreras-list {
+    padding: 0 25px;
+}
+
+.carrera-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.carrera-row:last-child {
+    border-bottom: none;
+}
+
+.carrera-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.carrera-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.btn-ver-unis {
+    background-color: #e2e8f0;
+    color: #1a252f;
+    padding: 10px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid #cbd5e1;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-ver-unis:hover {
+    background-color: #cbd5e1;
+    color: #0f172a;
+}
