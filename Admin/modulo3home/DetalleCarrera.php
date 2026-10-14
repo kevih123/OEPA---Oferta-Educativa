@@ -80,9 +80,16 @@ mysqli_close($conectar);
     <header class="admin-header">
         <div class="header-top">
             <h1>OEPA</h1>
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="buscador" placeholder="Busca Carrera">
+            <div class="search-bar-container">
+                <form action="ResultadoBusqueda.php" method="GET" class="search-bar">
+                    <input type="text" id="buscador" name="q" placeholder="Busca Carrera" autocomplete="off">
+                    <button type="submit" class="btn-search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    
+                    <!-- El contenedor de sugerencias DENTRO del form para alineación precisa -->
+                    <div id="sugerencias-box" class="sugerencias-box" style="position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; z-index: 99999; display: none; border-radius: 0 0 10px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></div>
+                </form>
             </div>
             <a class="btn-primary" href="../login.php">¿Eres admin?</a>
         </div>
@@ -199,6 +206,6 @@ mysqli_close($conectar);
 
     </main>
 
-    <script src="buscador.js"></script>
+    <script src="busqueda_predictiva.js"></script>
 </body>
 </html>

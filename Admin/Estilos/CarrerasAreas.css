@@ -106,3 +106,79 @@
     background-color: #cbd5e1;
     color: #0f172a;
 }
+
+/* 1. Contenedor del Formulario */
+form.search-bar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    background-color: #ffffff !important;
+    border-radius: 25px !important;
+    padding: 5px 15px !important;
+    width: 380px !important; /* Ancho fijo para la barra */
+    height: 42px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    margin: 0 auto !important;
+}
+
+form.search-bar input#buscador {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    padding: 8px !important;
+    font-size: 0.95rem !important;
+    color: #333 !important;
+}
+
+form.search-bar .btn-search-icon {
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #444 !important;
+    font-size: 1rem !important;
+}
+
+/* 2. Caja de Predicciones Flotante (Forzada) */
+div#sugerencias-box.sugerencias-box {
+    position: absolute !important;
+    top: 100% !important; /* Aparece justo abajo del form */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important; /* Mismo ancho que el form (380px) */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* Fondo blanco para no transparente */
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+    z-index: 99999 !important; /* Por encima de todo */
+    display: none;
+    overflow: hidden !important;
+    border: 1px solid #ccc !important;
+    border-top: none !important;
+    margin-top: 2px !important;
+}
+
+/* 3. Cada elemento de la lista */
+div#sugerencias-box .sugerencia-item {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 16px !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    color: #222222 !important;
+    text-align: left !important; /* Alineado a la izquierda */
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #eee !important;
+    white-space: normal !important; /* Para que el texto largo respete saltos si es necesario */
+}
+
+div#sugerencias-box .sugerencia-item:last-child {
+    border-bottom: none !important;
+}
+
+div#sugerencias-box .sugerencia-item:hover {
+    background-color: #eaf2f8 !important;
+    color: #0f4c81 !important;
+    font-weight: 600 !important;
+}
