@@ -1,22 +1,36 @@
+```php
 <?php
 require '../conn.php';
 
-// Validar que se haya recibido el ID de la carrera mediante GET
 if (!isset($_GET['id_carrera']) || empty($_GET['id_carrera'])) {
-    // Si no enviaron un ID, redirigir a la oferta educativa
     header('Location: CarrerasAreas.php');
     exit();
 }
 
-// Convertir a entero por seguridad (sanitización básica)
 $id_carrera = (int)$_GET['id_carrera'];
 
-// Obtener el nombre de la carrera de la BD
-$consulta_carrera = "SELECT nombre_carrera FROM carreras WHERE id_carrera = $id_carrera";
+$modalidadesFiltro = [
+    'presencial' => 1,
+    'en_linea' => 2,
+    'hibrida' => 3
+];
+
+$modalidadActual = $_GET['modalidad'] ?? 'todas';
+
+if (
+    $modalidadActual !== 'todas' &&
+    !isset($modalidadesFiltro[$modalidadActual])
+) {
+    $modalidadActual = 'todas';
+}
+
+$consulta_carrera = "SELECT nombre_carrera
+                     FROM carreras
+                     WHERE id_carrera = $id_carrera";
+
 $resultado_carrera = mysqli_query($conectar, $consulta_carrera);
 $carrera_info = mysqli_fetch_assoc($resultado_carrera);
 
-// Si la carrera con ese ID no existe en la BD
 if (!$carrera_info) {
     header('Location: CarrerasAreas.php');
     exit();
@@ -24,8 +38,7 @@ if (!$carrera_info) {
 
 $nombre_carrera = $carrera_info['nombre_carrera'];
 
-// Consulta JOIN para obtener las universidades que imparten esa carrera
-$query = "SELECT 
+$query = "SELECT
               u.universidad_id,
               u.nombre_institucion,
               u.direccion,
@@ -33,19 +46,31 @@ $query = "SELECT
               uc.duracion,
               uc.turno
            FROM universidades_carreras AS uc
-           JOIN universidades AS u ON uc.id_universidad = u.universidad_id
-           WHERE uc.id_carrera = $id_carrera
-           ORDER BY u.nombre_institucion ASC";
+           JOIN universidades AS u
+               ON uc.id_universidad = u.universidad_id
+           WHERE uc.id_carrera = $id_carrera";
+
+if ($modalidadActual !== 'todas') {
+    $idModalidad = $modalidadesFiltro[$modalidadActual];
+
+    $query .= " AND EXISTS (
+                    SELECT 1
+                    FROM carrera_modalidades AS cm
+                    WHERE cm.id_carrera = uc.id_carrera
+                    AND cm.id_modalidad = $idModalidad
+                )";
+}
+
+$query .= " ORDER BY u.nombre_institucion ASC";
 
 $resultado_unis = mysqli_query($conectar, $query);
 
-// Agregar las universidades a un arreglo
 $universidades = [];
+
 while ($fila = mysqli_fetch_assoc($resultado_unis)) {
     $universidades[] = $fila;
 }
 
-// Cerrar la conexión
 mysqli_close($conectar);
 ?>
 <!DOCTYPE html>
@@ -61,57 +86,67 @@ mysqli_close($conectar);
 
 <body>
 
-    <!-- ============ HEADER ============ -->
     <header class="admin-header">
         <div class="header-top">
             <h1>OEPA</h1>
+
             <div class="search-bar-container">
                 <form action="ResultadoBusqueda.php" method="GET" class="search-bar">
                     <input type="text" id="buscador" name="q" placeholder="Busca Carrera" autocomplete="off">
+
                     <button type="submit" class="btn-search-icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    
-                    <!-- El contenedor de sugerencias DENTRO del form para alineación precisa -->
+
                     <div id="sugerencias-box" class="sugerencias-box" style="position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; z-index: 99999; display: none; border-radius: 0 0 10px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></div>
                 </form>
             </div>
+
             <a class="btn-primary" href="../login.php">¿Eres admin?</a>
         </div>
+
         <nav class="header-nav">
             <a href="Paginaprincipal.php">Universidades</a>
             <a href="CarrerasAreas.php" class="nav-active">Carreras</a>
         </nav>
     </header>
 
-    <!-- ============ CONTENIDO ============ -->
+    <?php include 'Modalmodalidades.php'; ?>
+
     <main class="admin-main">
 
-        <!-- Ruta / Breadcrumb -->
         <div class="breadcrumb">
-            <a href="CarrerasAreas.php">Oferta Educativa</a> &gt; <span><?php echo htmlspecialchars($nombre_carrera); ?></span>
+            <a href="CarrerasAreas.php">Oferta Educativa</a>
+            &gt;
+            <span><?php echo htmlspecialchars($nombre_carrera); ?></span>
         </div>
 
-        <h2 class="section-title">Universidades con <?php echo htmlspecialchars($nombre_carrera); ?></h2>
+        <h2 class="section-title">
+            Universidades con <?php echo htmlspecialchars($nombre_carrera); ?>
+        </h2>
 
         <section class="unis-list">
 
             <?php if (empty($universidades)): ?>
                 <p style="text-align:center; color:#666; padding: 40px;">
-                    No hay universidades registradas que oferten esta carrera por el momento.
+                    No hay universidades registradas que oferten esta carrera en la modalidad seleccionada.
                 </p>
             <?php else: ?>
+
                 <?php foreach ($universidades as $uni): ?>
                     <article class="uni-row">
                         <div class="uni-info">
-                            <h3><?php echo htmlspecialchars($uni['nombre_institucion']); ?></h3>
+                            <h3>
+                                <?php echo htmlspecialchars($uni['nombre_institucion']); ?>
+                            </h3>
                         </div>
-                        <!-- Botón para ver los detalles completos de la universidad o su plan de estudios -->
-                        <a href="DetalleCarrera.php?id_universidad=<?php echo $uni['universidad_id']; ?>&id_carrera=<?php echo $id_carrera; ?>" class="btn-detalles">
+
+                        <a href="DetalleCarrera.php?id_universidad=<?php echo $uni['universidad_id']; ?>&id_carrera=<?php echo $id_carrera; ?>&modalidad=<?php echo urlencode($modalidadActual); ?>" class="btn-detalles">
                             Ver detalles &gt;
                         </a>
                     </article>
                 <?php endforeach; ?>
+
             <?php endif; ?>
 
         </section>
@@ -119,5 +154,7 @@ mysqli_close($conectar);
     </main>
 
     <script src="busqueda_predictiva.js"></script>
+
 </body>
 </html>
+```

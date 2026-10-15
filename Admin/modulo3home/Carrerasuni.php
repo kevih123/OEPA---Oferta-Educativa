@@ -1,26 +1,56 @@
+```php
 <?php
-$idu=$_GET["idu"];
-require '../conn.php'; 
+$idu = isset($_GET["idu"]) ? (int)$_GET["idu"] : 0;
 
-// consultas de carreras
-$instru = "SELECT 
-            u.universidad_id,u.nombre_institucion,
+require '../conn.php';
+
+$modalidadesFiltro = [
+    'presencial' => 1,
+    'en_linea' => 2,
+    'hibrida' => 3
+];
+
+$modalidadActual = $_GET['modalidad'] ?? 'todas';
+
+if (
+    $modalidadActual !== 'todas' &&
+    !isset($modalidadesFiltro[$modalidadActual])
+) {
+    $modalidadActual = 'todas';
+}
+
+$instru = "SELECT
+              u.universidad_id,
+              u.nombre_institucion,
               c.id_carrera,
               a.id AS id_area,
               a.nombre_area,
               c.nombre_carrera,
               c.descripcion,
               c.certificaciones
-           FROM carreras  c
-           JOIN areas  a ON c.id_area = a.id JOIN universidades_carreras uc on 
-           c.id_carrera=uc.id_carrera 
-           join universidades u on u.universidad_id=uc.id_universidad
-           where u.universidad_id=$idu
-           ORDER BY c.id_carrera ASC;";
+           FROM carreras c
+           JOIN areas a ON c.id_area = a.id
+           JOIN universidades_carreras uc ON c.id_carrera = uc.id_carrera
+           JOIN universidades u ON u.universidad_id = uc.id_universidad
+           WHERE u.universidad_id = $idu";
+
+if ($modalidadActual !== 'todas') {
+    $idModalidad = $modalidadesFiltro[$modalidadActual];
+
+    $instru .= " AND EXISTS (
+                    SELECT 1
+                    FROM carrera_modalidades AS cm
+                    WHERE cm.id_carrera = c.id_carrera
+                    AND cm.id_modalidad = $idModalidad
+                )";
+}
+
+$instru .= " ORDER BY c.id_carrera ASC";
 
 $re = mysqli_query($conectar, $instru);
 
 $carreras = [];
+
 while ($fila = mysqli_fetch_assoc($re)) {
     $carreras[] = $fila;
 }
@@ -36,29 +66,39 @@ mysqli_close($conectar);
     <link rel="stylesheet" href="../Estilos/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
- <!-- ============ HEADER ============ -->
+
+<body>
+
     <header class="admin-header">
         <div class="header-top">
             <h1>OEPA</h1>
+
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="buscador" placeholder="Busca Carrera">
             </div>
-             <a class="btn-primary"href='../login.php'">¿Eres admin? </a>
+
+            <a class="btn-primary" href="../login.php">¿Eres admin?</a>
         </div>
+
         <nav class="header-nav">
             <a href="Paginaprincipal.php">Universidades</a>
-            <a href="Carreras.php" >Carreras</a>
-           
+            <a href="Carreras.php">Carreras</a>
         </nav>
     </header>
 
-    <!-- ============ CONTENIDO ============ -->
+    <?php include 'Modalmodalidades.php'; ?>
+
     <main class="admin-main">
 
         <div class="admin-toolbar">
-           <?php if (!empty($carreras)): ?>
-            <h2>Carreras de la universidad <?php echo htmlspecialchars($carreras[0]['nombre_institucion']); ?></h2>
+            <?php if (!empty($carreras)): ?>
+                <h2>
+                    Carreras de la universidad
+                    <?php echo htmlspecialchars($carreras[0]['nombre_institucion']); ?>
+                </h2>
+            <?php else: ?>
+                <h2>Carreras de la universidad</h2>
             <?php endif; ?>
         </div>
 
@@ -66,32 +106,27 @@ mysqli_close($conectar);
 
             <?php if (empty($carreras)): ?>
                 <p style="grid-column: 1/-1; text-align:center; color:#666; padding: 40px;">
-                    No hay carreras registradas aún.
+                    No hay carreras registradas para esta universidad y modalidad.
                 </p>
             <?php else: ?>
+
                 <?php foreach ($carreras as $c): ?>
                     <article class="uni-card" data-id="<?php echo $c['id_carrera']; ?>">
 
-                        <div class="card-actions">
-                           
-                        </div>
+                        <div class="card-actions"></div>
 
-                        <!-- Badge del área -->
                         <span class="card-badge">
                             <?php echo htmlspecialchars($c['nombre_area']); ?>
                         </span>
 
-                        <!-- Nombre de la carrera -->
                         <p class="card-nombre">
                             <?php echo htmlspecialchars($c['nombre_carrera']); ?>
                         </p>
 
-                        <!-- Descripción -->
                         <p class="card-desc">
-                            <?php echo htmlspecialchars($c['descripcion']); ?>
+                            <?php echo htmlspecialchars($c['descripcion'] ?? ''); ?>
                         </p>
 
-                        <!-- Certificaciones -->
                         <?php if (!empty($c['certificaciones'])): ?>
                             <p class="card-cert">
                                 <i class="fa-solid fa-certificate"></i>
@@ -101,10 +136,15 @@ mysqli_close($conectar);
 
                     </article>
                 <?php endforeach; ?>
+
             <?php endif; ?>
 
         </section>
 
     </main>
-     <script src="buscador.js"></script>
-<body>
+
+    <script src="buscador.js"></script>
+
+</body>
+</html>
+```

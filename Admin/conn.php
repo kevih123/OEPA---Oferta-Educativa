@@ -2,7 +2,7 @@
 $server = "localhost";
 $db     = "oepa";
 $user   = "root";
-$pass   = "";
+$pass   = "root";
 
 // Conexión (NO MODIFICAR)
 $conectar = mysqli_connect($server, $user, $pass, $db);
