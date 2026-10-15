@@ -137,11 +137,15 @@ mysqli_close($conectar);
         <div class="header-top">
             <h1>OEPA</h1>
             <div class="search-bar-container">
-                <form action="resultado_busqueda.php" method="GET" class="search-bar">
-                    <input type="text" id="buscador" name="q" value="<?php echo htmlspecialchars($query_original); ?>" placeholder="Busca Carrera" autocomplete="off">
-                    <button type="submit" class="btn-search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <form action="ResultadoBusqueda.php" method="GET" class="search-bar">
+                    <input type="text" id="buscador" name="q" placeholder="Busca Carrera" autocomplete="off">
+                    <button type="submit" class="btn-search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    
+                    <!-- El contenedor de sugerencias DENTRO del form para alineación precisa -->
+                    <div id="sugerencias-box" class="sugerencias-box" style="position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; z-index: 99999; display: none; border-radius: 0 0 10px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></div>
                 </form>
-                <div id="sugerencias-box" class="sugerencias-box"></div>
             </div>
             <a class="btn-primary" href="../login.php">¿Eres admin?</a>
         </div>
@@ -161,7 +165,7 @@ mysqli_close($conectar);
                     <span class="area-badge"><?php echo htmlspecialchars($carrera_principal['nombre_area']); ?></span>
                     <h3><?php echo htmlspecialchars($carrera_principal['nombre_carrera']); ?></h3>
                     <p><?php echo htmlspecialchars($carrera_principal['descripcion']); ?></p>
-                    <a href="ver_universidades.php?id_carrera=<?php echo $carrera_principal['id_carrera']; ?>" class="btn-unis">
+                    <a href="CarrerasUniversidades.php?id_carrera=<?php echo $carrera_principal['id_carrera']; ?>" class="btn-unis">
                         Ver Universidades &gt;
                     </a>
                 </article>
@@ -175,7 +179,7 @@ mysqli_close($conectar);
                                 <article class="similar-card">
                                     <h4><?php echo htmlspecialchars($sim['nombre_carrera']); ?></h4>
                                     <p style="font-size: 0.85rem; color: #666;"><?php echo htmlspecialchars($sim['descripcion']); ?></p>
-                                    <a href="ver_universidades.php?id_carrera=<?php echo $sim['id_carrera']; ?>" class="btn-unis" style="font-size: 0.8rem;">
+                                    <a href="CarrerasUniversidades.php?id_carrera=<?php echo $sim['id_carrera']; ?>" class="btn-unis" style="font-size: 0.8rem;">
                                         Ver Universidades &gt;
                                     </a>
                                 </article>
@@ -195,6 +199,6 @@ mysqli_close($conectar);
         </div>
     </main>
 
-    <script src="buscador.js"></script>
+    <script src="busqueda_predictiva.js"></script>
 </body>
 </html>
