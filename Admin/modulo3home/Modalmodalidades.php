@@ -31,7 +31,7 @@ $textoModalidad = $modalidadActual === 'todas'
         position: relative;
         display: inline-block;
         font-family: Arial, sans-serif;
-        z-index: 1000;
+        margin: 200px 0 20px 35px;
     }
 
     /* Botón principal */

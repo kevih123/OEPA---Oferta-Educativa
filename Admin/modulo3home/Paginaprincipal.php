@@ -1,4 +1,3 @@
-```php
 <?php
 require '../conn2.php';
 
@@ -111,7 +110,7 @@ mysqli_close($conectar);
                                     name="idu"
                                     value="<?php echo $u['universidad_id']; ?>"
                                     type="submit">
-                                Ver Carreras de la universidad
+                                <i class="fa fa-eye"></i> Carreras
                             </button>
 
                         </article>
