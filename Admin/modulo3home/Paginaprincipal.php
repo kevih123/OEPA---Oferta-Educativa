@@ -51,29 +51,13 @@ mysqli_close($conectar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador Universidad</title>
-    <link rel="stylesheet" href="../Estilos/general.css">
+    <link rel="stylesheet" href="../Estilos_a/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <header class="admin-header">
-        <div class="header-top">
-            <h1>OEPA</h1>
-
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="buscador" placeholder="Busca Universidad">
-            </div>
-
-            <a class="btn-primary" href="../login.php">¿Eres admin?</a>
-        </div>
-
-        <nav class="header-nav">
-            <a href="Paginaprincipal.php" class="nav-active">Universidades</a>
-            <a href="CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>">Carreras</a>
-        </nav>
-    </header>
+    <?php include 'NavBar/NavBarUniversidades.php'; ?>
 
     <?php include 'Modalmodalidades.php'; ?>
 
@@ -127,4 +111,3 @@ mysqli_close($conectar);
 
 </body>
 </html>
-```

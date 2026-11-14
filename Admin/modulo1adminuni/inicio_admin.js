@@ -1,5 +1,90 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* --- LÓGICA DE PRECIOS DINÁMICOS --- */
+    const freqAgregar = document.getElementById('freqPagoAgregar');
+    const montoAgregar = document.getElementById('montoPagoAgregar');
+    const freqEditar = document.getElementById('freqPagoEditar');
+    const montoEditar = document.getElementById('montoPagoEditar');
+
+    if (freqAgregar) {
+        freqAgregar.addEventListener('change', function() {
+            if (this.value) {
+                montoAgregar.disabled = false;
+                montoAgregar.style.background = '#ffffff';
+                montoAgregar.style.cursor = 'text';
+                montoAgregar.focus();
+            } else {
+                montoAgregar.value = '';
+                montoAgregar.disabled = true;
+                montoAgregar.style.background = '#e2e8f0';
+                montoAgregar.style.cursor = 'not-allowed';
+            }
+        });
+    }
+
+    if (freqEditar) {
+        freqEditar.addEventListener('change', function() {
+            if (this.value) {
+                montoEditar.disabled = false;
+                montoEditar.style.background = '#ffffff';
+                montoEditar.style.cursor = 'text';
+            } else {
+                montoEditar.value = '';
+                montoEditar.disabled = true;
+                montoEditar.style.background = '#e2e8f0';
+                montoEditar.style.cursor = 'not-allowed';
+            }
+        });
+    }
+
+    /* --- RESTRICCIÓN: SOLO NÚMEROS EN TELÉFONOS Y MONTOS --- */
+    function aplicarSoloNumeros(input) {
+        if (!input) return;
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+    aplicarSoloNumeros(document.getElementById('telAgregar'));
+    aplicarSoloNumeros(document.getElementById('editTelefono'));
+    aplicarSoloNumeros(montoAgregar);
+    aplicarSoloNumeros(montoEditar);
+
+    // Validaciones de campos de texto y combinar precio
+    function configurarValidacionYEnvio(formId, errorId, freqId, montoId, combinadoId) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+
+        form.addEventListener("submit", function(e) {
+            const errorDiv = document.getElementById(errorId);
+            if (errorDiv) errorDiv.style.display = 'none';
+
+            // 1. Validar campos de texto (evitar solo números)
+            const inputsTexto = form.querySelectorAll('input[type="text"]:not([name="te"]):not([name="n_te"]):not(#montoPagoAgregar):not(#montoPagoEditar), textarea');
+            for (let input of inputsTexto) {
+                const valor = input.value.trim();
+                if (/^\d+$/.test(valor) && valor !== '') {
+                    e.preventDefault();
+                    if (errorDiv) {
+                        const labelText = input.previousElementSibling ? input.previousElementSibling.textContent : 'Campo';
+                        errorDiv.textContent = `⚠️ El campo "${labelText}" no puede contener únicamente números. Debe ingresar texto descriptivo.`;
+                        errorDiv.style.display = 'block';
+                        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                    input.focus();
+                    return;
+                }
+            }
+
+            // 2. Combinar el precio antes de enviar
+            const freq = document.getElementById(freqId).value;
+            const monto = document.getElementById(montoId).value.trim();
+            if (freq && monto) {
+                const montoFormateado = Number(monto).toLocaleString('en-US');
+                document.getElementById(combinadoId).value = `Pago ${freq.toLowerCase()} de $${montoFormateado}`;
+            }
+        });
+    }
+
     /*modal para agregar*/
     const modalAgregar  = document.getElementById("modalAgregar");
     const btnAgregar    = document.getElementById("btnAgregar");
@@ -67,18 +152,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".icon-edit").forEach(btn => {
         btn.addEventListener("click", () => {
-            document.getElementById("editId").value         = btn.dataset.id;
-            document.getElementById("editNombre").value     = btn.dataset.nombre;
-            document.getElementById("editDescri").value     = btn.dataset.descri;
-            document.getElementById("editPeriodo").value    = btn.dataset.periodo;
-            document.getElementById("editPago").value       = btn.dataset.pago;
-            document.getElementById("editFrecuencia").value = btn.dataset.frecuencia;
-            document.getElementById("editDireccion").value  = btn.dataset.direccion;
-            document.getElementById("editTelefono").value   = btn.dataset.telefono;
-            document.getElementById("editSitio").value      = btn.dataset.sitio;
-            document.getElementById("editLogo").value       = btn.dataset.logo;
+            // Función auxiliar para asignar valores de forma segura sin romper el script
+            const setValor = (id, valor) => {
+                const el = document.getElementById(id);
+                if (el) el.value = valor !== undefined ? valor : "";
+            };
 
-            modalEditar.classList.add("active");
+            setValor("editId", btn.dataset.id);
+            setValor("editNombre", btn.dataset.nombre);
+            setValor("editDescri", btn.dataset.descri);
+            setValor("editFrecuencia", btn.dataset.frecuencia);
+            setValor("editDireccion", btn.dataset.direccion);
+            setValor("editTelefono", btn.dataset.telefono);
+            setValor("editSitio", btn.dataset.sitio);
+            setValor("editLogo", btn.dataset.logo);
+
+            // 1. Manejar el Periodo con Radio Buttons (S o C) de forma segura
+            const periodoVal = btn.dataset.periodo;
+            const radioS = document.getElementById("editPeriodoS");
+            const radioC = document.getElementById("editPeriodoC");
+            if (radioS) radioS.checked = (periodoVal === 'S');
+            if (radioC) radioC.checked = (periodoVal === 'C');
+
+            // 2. Desglosar el campo 'pago' en Frecuencia y Cantidad
+            const pagoTexto = btn.dataset.pago || "";
+            let freqEncontrada = "";
+            if (pagoTexto.toLowerCase().includes("mensual")) {
+                freqEncontrada = "Mensual";
+            } else if (pagoTexto.toLowerCase().includes("semestral")) {
+                freqEncontrada = "Semestral";
+            } else if (pagoTexto.toLowerCase().includes("cuatrimestral")) {
+                freqEncontrada = "Cuatrimestral";
+            }
+            const numerosMonto = pagoTexto.replace(/[^0-9]/g, "");
+
+            const selectFreq = document.getElementById("freqPagoEditar");
+            if (selectFreq) selectFreq.value = freqEncontrada;
+
+            if (montoEditar) {
+                if (freqEncontrada) {
+                    montoEditar.disabled = false;
+                    montoEditar.style.background = "#ffffff";
+                    montoEditar.style.cursor = "text";
+                    montoEditar.value = numerosMonto;
+                } else {
+                    montoEditar.value = "";
+                    montoEditar.disabled = true;
+                    montoEditar.style.background = "#e2e8f0";
+                }
+            }
+
+            // Abrir el modal de forma garantizada
+            if (modalEditar) {
+                modalEditar.classList.add("active");
+            }
         });
     });
 
@@ -163,4 +290,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         window.location.href = "../login.php";
     });
+
+    // Activar validaciones y combinación de precios para Agregar y Editar
+    configurarValidacionYEnvio('formAgregar', 'error-agregar', 'freqPagoAgregar', 'montoPagoAgregar', 'paCombinadoAgregar');
+    configurarValidacionYEnvio('formEditar', 'error-editar', 'freqPagoEditar', 'montoPagoEditar', 'paCombinadoEditar');
 });

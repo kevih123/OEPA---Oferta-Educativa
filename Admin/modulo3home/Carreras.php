@@ -1,4 +1,3 @@
-php
 <?php
 require '../conn.php';
 
@@ -133,4 +132,3 @@ mysqli_close($conectar);
 
 </body>
 </html>
-```

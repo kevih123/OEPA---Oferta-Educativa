@@ -1,4 +1,3 @@
-
 <?php
 // Modalmodalidades.php
 // Componente reutilizable para el filtro de modalidades de OEPA.
@@ -26,84 +25,90 @@ $textoModalidad = $modalidadActual === 'todas'
 ?>
 
 <style>
-    /* Contenedor principal del componente */
-    .oepa-modalidades {
-        position: relative;
-        display: inline-block;
-        font-family: Arial, sans-serif;
-        margin: 200px 0 20px 35px;
-    }
+.oepa-modalidades {
+    position: relative;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    margin: 15px 0 15px 20px
+}
 
-    /* Botón principal */
-    .oepa-modalidades-boton {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
-        padding: 12px 18px;
-        border: none;
-        border-radius: 10px;
-        background: #172554;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s ease;
-    }
+/* 🛑 SOLUCIÓN AL ESPACIO GIGANTE: Evita que el formulario actúe como bloque */
+.oepa-modalidades form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
 
-    .oepa-modalidades-boton:hover {
-        background: #123b4a;
-    }
+/* Botón principal */
+.oepa-modalidades-boton {
+    background-color: #1e293b;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+}
 
-    /* Menú desplegable */
-    .oepa-modalidades-menu {
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        min-width: 220px;
-        padding: 7px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    }
+.oepa-modalidades-boton:hover {
+    background-color: #0f172a;
+}
 
-    /* Ocultar el menú cuando está cerrado */
-    .oepa-modalidades-menu[hidden] {
-        display: none;
-    }
+/* Menú desplegable */
+.oepa-modalidades-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    padding: 7px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+}
 
-    /* Opciones del menú */
-    .oepa-modalidad-opcion {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: transparent;
-        color: #172554;
-        text-align: left;
-        font-size: 14px;
-        cursor: pointer;
-    }
+/* Ocultar el menú cuando está cerrado */
+.oepa-modalidades-menu[hidden] {
+    display: none;
+}
 
-    .oepa-modalidad-opcion:hover {
-        background: #ede9fe;
-    }
+/* Opciones del menú */
+.oepa-modalidad-opcion {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #172554;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
 
-    .oepa-modalidad-opcion.seleccionada {
-        background: #cefadd;
-        font-weight: bold;
-    }
+.oepa-modalidad-opcion:hover {
+    background: #ede9fe;
+}
 
-    .oepa-modalidad-flecha {
-        transition: transform 0.2s ease;
-    }
+.oepa-modalidad-opcion.seleccionada {
+    background: #cefadd;
+    font-weight: bold;
+}
 
-    .oepa-modalidades-boton[aria-expanded="true"]
-    .oepa-modalidad-flecha {
-        transform: rotate(180deg);
-    }
+.oepa-modalidad-flecha {
+    transition: transform 0.2s ease;
+}
+
+.oepa-modalidades-boton[aria-expanded="true"] .oepa-modalidad-flecha {
+    transform: rotate(180deg);
+}
 </style>
 
 <div class="oepa-modalidades" id="oepaModalidades">

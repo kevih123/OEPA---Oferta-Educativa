@@ -1,0 +1,324 @@
+:root {
+    --bg-dark: #0f172a;
+    --amarillo: #f4c430;
+    --verde: #4cd964;
+  }
+  
+  /* ==========================================
+     HEADER Y MENÚ DE PÍLDORA UNIFICADO
+     ================================---------- */
+  .admin-header {
+    background: var(--bg-dark);
+    color: white;
+    padding: 18px 40px 10px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+    gap: 20px;
+    padding-bottom: 5px;
+    flex-wrap: wrap;
+  }
+  
+  .header-top h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  /* Barra de búsqueda unificada */
+  .search-bar,
+  form.search-bar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 30px !important;
+    padding: 6px 45px 6px 18px !important;
+    width: 380px !important;
+    height: 42px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
+    margin: 0 auto !important;
+  }
+  
+  .search-bar input,
+  form.search-bar input#buscador {
+    border: none !important;
+    outline: none !important;
+    font-size: 0.95rem !important;
+    width: 100% !important;
+    background: transparent !important;
+    color: #ffffff !important;
+    padding: 0 !important;
+  }
+  
+  .search-bar input::placeholder,
+  form.search-bar input#buscador::placeholder {
+    color: #cbd5e1 !important;
+  }
+  
+  .search-icon,
+  .btn-search-icon {
+    position: absolute !important;
+    right: 14px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #cbd5e1 !important;
+    font-size: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .btn-search-icon:hover {
+    color: #ffffff !important;
+  }
+  
+  /* Menú de Píldora perfectamente centrado */
+  .header-nav {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 4px;
+    display: inline-flex;
+    gap: 4px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 12px auto 8px auto !important;
+    width: fit-content;
+  }
+  
+  .header-nav a {
+    background: transparent;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: none !important;
+  }
+  
+  .header-nav a:hover,
+  .header-nav a.nav-active {
+    background-color: rgba(244, 196, 48, 0.2) !important;
+    color: var(--amarillo) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Botón Administrador */
+  .btn-primary {
+    background: var(--verde);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(76, 217, 100, 0.4);
+    text-decoration: none !important;
+  }
+  
+  /* ==========================================
+     ESTILOS ESPECÍFICOS DE DETALLE CARRERA
+     ================================---------- */
+  body {
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Contenedor principal para compensar el header fijo */
+  .main-content,
+  .detalle-container {
+    padding: 30px 40px 80px 40px;
+    margin-top: 150px;
+  }
+  
+  .breadcrumb {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 500;
+  }
+  
+  .breadcrumb a {
+      color: #1a252f;
+      text-decoration: none;
+  }
+  
+  .breadcrumb a:hover {
+      text-decoration: underline;
+  }
+  
+  /* Layout Principal en 3 Columnas */
+  .detalle-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 25px;
+      align-items: start;
+  }
+  
+  /* Panel Izquierdo: Tarjeta Universidad */
+  .card-universidad {
+      background-color: #e0e0e0;
+      border-radius: 20px;
+      padding: 25px 20px;
+      text-align: center;
+  }
+  
+  .card-universidad .uni-logo {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      margin: 0 auto 15px auto;
+      display: block;
+  }
+  
+  .card-universidad h3 {
+      font-size: 1.1rem;
+      color: #000;
+      margin-bottom: 15px;
+  }
+  
+  .card-universidad .uni-data-list {
+      text-align: left;
+      font-size: 0.9rem;
+      color: #222;
+      line-height: 1.5;
+  }
+  
+  .card-universidad .uni-data-list p {
+      margin: 6px 0;
+      word-break: break-word;
+  }
+  
+  /* Panel Central: Contenido de la Carrera */
+  .contenido-carrera {
+      padding: 0 10px;
+  }
+  
+  .contenido-carrera h2 {
+      font-size: 2rem;
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 20px;
+  }
+  
+  .seccion-info {
+      margin-bottom: 20px;
+  }
+  
+  .seccion-info h4 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 5px;
+  }
+  
+  .seccion-info p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 0;
+      line-height: 1.4;
+  }
+  
+  .btn-plan-estudios {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 28px;
+      border: 2px solid #000;
+      border-radius: 20px;
+      background-color: #e0e0e0;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+  }
+  
+  .btn-plan-estudios:hover {
+      background-color: #d0d0d0;
+  }
+  
+  /* Panel Derecho: Otras Universidades */
+  .panel-lateral {
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  }
+  
+  .panel-lateral h4 {
+      font-size: 1rem;
+      color: #000;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+  }
+  
+  .item-otra-uni {
+      background-color: #fff;
+      padding: 20px 15px;
+      border-radius: 6px;
+      text-align: center;
+  }
+  
+  .item-otra-uni a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+  }
+  
+  .item-otra-uni a:hover {
+      text-decoration: underline;
+  }
+  
+  .btn-similares {
+      background-color: #0f4c81;
+      color: #fff;
+      padding: 12px 15px;
+      border-radius: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border: 1px solid #0a355c;
+      margin-top: 10px;
+      transition: background-color 0.2s ease;
+  }
+  
+  .btn-similares:hover {
+      background-color: #0a355c;
+  }
+  
+  /* Responsive para pantallas chicas */
+  @media (max-width: 900px) {
+      .detalle-grid {
+          grid-template-columns: 1fr;
+      }
+  }

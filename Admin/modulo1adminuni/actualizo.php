@@ -28,12 +28,12 @@ $id_uni = intval($id_uni);
 
 $instru = "UPDATE universidades SET 
             nombre_institucion = '$nombre',
-            descripción = '$des',
+            descripcion = '$des',
             periodo = '$per',
             pago = '$pa',
             frecuencia_convocatoria = '$fe',
-            dirección = '$di',
-            teléfono = '$tele',
+            direccion = '$di',
+            telefono = '$tele',
             sitio_web = '$si',
             logo = '$lo'
            WHERE universidad_id = $id_uni";

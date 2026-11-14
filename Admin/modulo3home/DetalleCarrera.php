@@ -1,4 +1,3 @@
-```php
 <?php
 require '../conn.php';
 
@@ -117,41 +116,19 @@ $modalidadUrl = '&modalidad=' . urlencode($modalidadActual);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($detalle['nombre_carrera']); ?> - <?php echo htmlspecialchars($detalle['nombre_institucion']); ?></title>
-    <link rel="stylesheet" href="../Estilos/general.css">
-    <link rel="stylesheet" href="../Estilos/DetalleCarrera.css">
+    <link rel="stylesheet" href="../Estilos_a/general.css">
+    <link rel="stylesheet" href="../Estilos_a/DetalleCarrera.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <header class="admin-header">
-        <div class="header-top">
-            <h1>OEPA</h1>
-
-            <div class="search-bar-container">
-                <form action="ResultadoBusqueda.php" method="GET" class="search-bar">
-                    <input type="text" id="buscador" name="q" placeholder="Busca Carrera" autocomplete="off">
-
-                    <button type="submit" class="btn-search-icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-
-                    <div id="sugerencias-box" class="sugerencias-box" style="position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; z-index: 99999; display: none; border-radius: 0 0 10px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></div>
-                </form>
-            </div>
-
-            <a class="btn-primary" href="../login.php">¿Eres admin?</a>
-        </div>
-
-        <nav class="header-nav">
-            <a href="Paginaprincipal.php">Universidades</a>
-            <a href="CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>" class="nav-active">Carreras</a>
-        </nav>
-    </header>
-
-    <?php include 'Modalmodalidades.php'; ?>
+    <?php include 'NavBar/NavBarCarreras.php'; ?>
 
     <main class="admin-main">
+
+    <div style="margin-top: 130px; padding: 20px;">
+    <!-- Envolvemos todo dentro de un div solo para dar espacio y no quede detras del NavBar -->
 
         <div class="breadcrumb">
             <a href="Paginaprincipal.php">Universidades Públicas de Aguascalientes</a>
@@ -175,14 +152,20 @@ $modalidadUrl = '&modalidad=' . urlencode($modalidadActual);
 
                     <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($detalle['telefono'] ?? 'No disponible'); ?></p>
 
+                    <?php 
+                    $urlWeb = trim($detalle['sitio_web'] ?? '');
+                    if (!empty($urlWeb) && !preg_match("~^(http|https)://~i", $urlWeb)) {
+                        $urlWeb = "https://" . $urlWeb;
+                    }
+                    ?>
+
                     <p><strong>Página:</strong>
-                        <?php if (!empty($detalle['sitio_web'])): ?>
-                            <a href="<?php echo htmlspecialchars($detalle['sitio_web']); ?>" target="_blank" rel="noopener noreferrer" style="color:#0f4c81;">Visitar sitio web</a>
+                        <?php if (!empty($urlWeb)): ?>
+                            <a href="<?php echo htmlspecialchars($urlWeb); ?>" target="_blank" rel="noopener noreferrer" style="color:#0f4c81;">Visitar sitio web</a>
                         <?php else: ?>
                             No disponible
                         <?php endif; ?>
                     </p>
-
                     <p><strong>Modalidad S/C:</strong> <?php echo ($detalle['periodo'] === 'S') ? 'Semestral' : 'Cuatrimestral'; ?></p>
                 </div>
             </aside>
@@ -213,8 +196,15 @@ $modalidadUrl = '&modalidad=' . urlencode($modalidadActual);
                     <p><?php echo htmlspecialchars($detalle['turno'] ?? 'No especificado'); ?> (Duración: <?php echo htmlspecialchars($detalle['duracion'] ?? 'Consultar'); ?>)</p>
                 </div>
 
-                <?php if (!empty($detalle['plan_de_estudios'])): ?>
-                    <a href="<?php echo htmlspecialchars($detalle['plan_de_estudios']); ?>" target="_blank" rel="noopener noreferrer" class="btn-plan-estudios">
+                <?php
+                $urlPlan = trim($detalle['plan_de_estudios'] ?? '');
+                if (!empty($urlPlan) && !preg_match("~^(http|https)://~i", $urlPlan)) {
+                    $urlPlan = "https://" . $urlPlan;
+                }
+                ?>
+
+                <?php if (!empty($urlPlan)): ?>
+                    <a href="<?php echo htmlspecialchars($urlPlan); ?>" target="_blank" rel="noopener noreferrer" class="btn-plan-estudios">
                         Plan de estudios
                     </a>
                 <?php else: ?>
@@ -250,10 +240,11 @@ $modalidadUrl = '&modalidad=' . urlencode($modalidadActual);
 
         </div>
 
+    </div>
+
     </main>
 
     <script src="busqueda_predictiva.js"></script>
 
 </body>
 </html>
-```

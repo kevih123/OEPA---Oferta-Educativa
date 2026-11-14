@@ -1,0 +1,247 @@
+:root {
+    --bg-dark: #0f172a;        /* Azul pizarra oscuro (igual al header principal) */
+    --bg-light: #f5f6fa;       /* Fondo general claro */
+    --verde: #4cd964;          /* Verde brillante para el botón de login */
+    --texto: #1e293b;
+    --borde: #e2e8f0;
+  }
+  
+  body {
+    background: var(--bg-light);
+    color: var(--texto);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Botón de retroceso superior izquierdo */
+  .icon {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-dark);
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    object-fit: contain;
+  }
+  
+  .icon:hover {
+    transform: scale(1.08);
+    background: #1e293b;
+  }
+  
+  /* Contenedor principal de la tarjeta */
+  .login-container {
+    width: 100%;
+    max-width: 820px;
+    padding: 20px;
+  }
+  
+  .login-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--borde);
+  }
+  
+  /* Cabecera de la tarjeta del login */
+  .login-header {
+    background: var(--bg-dark);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .login-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  
+  .login-header span {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+  
+  /* Contenido interior (Imagen y Formulario) */
+  .login-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px 30px;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .login-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  
+  /* Formulario */
+  #loginForm {
+    flex: 1;
+    min-width: 270px;
+    max-width: 340px;
+  }
+  
+  #loginForm h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+  
+  .input-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+  }
+  
+  .input-group input {
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #f8fafc;
+    color: var(--texto);
+  }
+  
+  .input-group input:focus {
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+  
+  /* Botón de Iniciar Sesión */
+  #loginForm button[type="submit"] {
+    background: var(--verde);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(76, 217, 100, 0.35);
+    transition: all 0.2s ease;
+    margin-top: 10px;
+  }
+  
+  #loginForm button[type="submit"]:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 6px 14px rgba(76, 217, 100, 0.5);
+  }
+  
+  /* Estilos para el Modal de Error */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+  
+  .modal-backdrop.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+  
+  .modal {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    padding: 25px 30px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
+  
+  .modal h2 {
+    color: #1e293b;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .modal p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  
+  .modal .btn {
+    background: var(--bg-dark);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .modal .btn:hover {
+    background: #1e293b;
+  }
+
+  /* Botón Regresar estilizado idéntico al botón de admin */
+.btn-regresar {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background-color: #4cd964; /* Verde brillante característico */
+  color: white;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(76, 217, 100, 0.35);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.btn-regresar:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 6px 14px rgba(76, 217, 100, 0.5);
+  color: white;
+}
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

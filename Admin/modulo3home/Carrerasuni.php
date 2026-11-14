@@ -1,4 +1,3 @@
-```php
 <?php
 $idu = isset($_GET["idu"]) ? (int)$_GET["idu"] : 0;
 
@@ -63,29 +62,14 @@ mysqli_close($conectar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carreras universidad</title>
-    <link rel="stylesheet" href="../Estilos/general.css">
+    <link rel="stylesheet" href="../Estilos_a/general.css">
+    <link rel="stylesheet" href="../Estilos_a/Carrerasuni.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <header class="admin-header">
-        <div class="header-top">
-            <h1>OEPA</h1>
-
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="buscador" placeholder="Busca Carrera">
-            </div>
-
-            <a class="btn-primary" href="../login.php">¿Eres admin?</a>
-        </div>
-
-        <nav class="header-nav">
-            <a href="Paginaprincipal.php">Universidades</a>
-            <a href="Carreras.php">Carreras</a>
-        </nav>
-    </header>
+    <?php include 'NavBar/NavBarUniversidades.php'; ?>
 
     <?php include 'Modalmodalidades.php'; ?>
 
@@ -111,30 +95,32 @@ mysqli_close($conectar);
             <?php else: ?>
 
                 <?php foreach ($carreras as $c): ?>
-                    <article class="uni-card" data-id="<?php echo $c['id_carrera']; ?>">
+                    <a href="DetalleCarrera.php?id_carrera=<?php echo $c['id_carrera']; ?>&id_universidad=<?php echo $idu; ?>&modalidad=<?php echo urlencode($modalidadActual); ?>" class="carrera-card-enlace">
+                        <article class="carrera-card" data-id="<?php echo $c['id_carrera']; ?>">
 
-                        <div class="card-actions"></div>
+                            <div class="card-actions"></div>
 
-                        <span class="card-badge">
-                            <?php echo htmlspecialchars($c['nombre_area']); ?>
-                        </span>
+                            <span class="card-badge">
+                                <?php echo htmlspecialchars($c['nombre_area']); ?>
+                            </span>
 
-                        <p class="card-nombre">
-                            <?php echo htmlspecialchars($c['nombre_carrera']); ?>
-                        </p>
-
-                        <p class="card-desc">
-                            <?php echo htmlspecialchars($c['descripcion'] ?? ''); ?>
-                        </p>
-
-                        <?php if (!empty($c['certificaciones'])): ?>
-                            <p class="card-cert">
-                                <i class="fa-solid fa-certificate"></i>
-                                <?php echo htmlspecialchars($c['certificaciones']); ?>
+                            <p class="card-nombre">
+                                <?php echo htmlspecialchars($c['nombre_carrera']); ?>
                             </p>
-                        <?php endif; ?>
 
-                    </article>
+                            <p class="card-desc">
+                                <?php echo htmlspecialchars($c['descripcion'] ?? ''); ?>
+                            </p>
+
+                            <?php if (!empty($c['certificaciones'])): ?>
+                                <p class="card-cert">
+                                    <i class="fa-solid fa-certificate"></i>
+                                    <?php echo htmlspecialchars($c['certificaciones']); ?>
+                                </p>
+                            <?php endif; ?>
+
+                        </article>
+                    </a>
                 <?php endforeach; ?>
 
             <?php endif; ?>
@@ -147,4 +133,3 @@ mysqli_close($conectar);
 
 </body>
 </html>
-```

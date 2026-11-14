@@ -12,7 +12,7 @@
 
     include '../conn.php';
 
-    $instru=" INSERT INTO Universidades ( nombre_institucion, descripción, periodo, pago, frecuencia_convocatoria, dirección, teléfono, sitio_web, logo) VALUES('$nombre','$des','$per','$pa','$fe','$di','$tele','$si','$lo');";
+    $instru=" INSERT INTO Universidades ( nombre_institucion, descripcion, periodo, pago, frecuencia_convocatoria, direccion, telefono, sitio_web, logo) VALUES('$nombre','$des','$per','$pa','$fe','$di','$tele','$si','$lo');";
     $re=mysqli_query($conectar,$instru);
     if ($re == false) {
         echo "<script>alert('No se pudo agregar la universidad'); window.location='inicioadmin.php';</script>";

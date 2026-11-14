@@ -1,0 +1,78 @@
+/* ==========================================
+   2. TARJETAS DE CARRERAS (Carrerasuni.php)
+   ================================---------- */
+.carrera-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 18px; /* Padding normal, sin espacio para logo flotante */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  margin-top: 0 !important; /* Sin margen superior extra */
+}
+
+/* Estilo para el enlace contenedor de la tarjeta */
+.carrera-card-enlace {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Efecto visual y cursor de interacción al pasar el ratón por la tarjeta */
+.carrera-card-enlace:hover .carrera-card {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Insignia / Badge del área de la carrera */
+.card-badge {
+  display: inline-block;
+  background: #1e4b8f;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-nombre {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.card-cert {
+  font-size: 0.78rem;
+  color: #1e4b8f;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed #cbd5e1;
+  width: 100%;
+}
+
+.card-cert i {
+  color: #f4c430;
+}

@@ -80,7 +80,7 @@ if (isset($_SESSION['login_error'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Administrador</title>
-    <link rel="stylesheet" href="Estilos/login.css">
+    <link rel="stylesheet" href="Estilos_a/login.css">
     <style>
         .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 9999; }
         .modal { background: #fff; padding: 20px; max-width: 420px; width: 90%; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.2); text-align: center; }
@@ -90,8 +90,7 @@ if (isset($_SESSION['login_error'])) {
     </style>
 </head>
 <body>
-    <input type="image" class="icon" src="Imagenes/return-icon.png" onclick="location.href='../Admin/modulo3home/Paginaprincipal.php'">
-    
+    <a href="../Admin/modulo3home/Paginaprincipal.php" class="btn-regresar">&lt;&lt; Regresar</a>    
     <main class="login-container">
         <section class="login-card">
             <div class="login-header">

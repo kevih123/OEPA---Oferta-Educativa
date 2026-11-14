@@ -1,0 +1,579 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  :root {
+    --bg-dark: #0f172a;        /* Azul pizarra oscuro profesional (Header) */
+    --bg-light: #f5f6fa;       /* Fondo general claro */
+    --gris-card: #ffffff;      /* Tarjetas limpias en blanco */
+    --amarillo: #f4c430;
+    --verde: #4cd964;          /* Botón admin / primario */
+    --rojo: #e74c3c;
+    --texto: #1e293b;
+    --btn-orange: #f59e0b;     /* Naranja cálido para el botón de carreras */
+  }
+  
+  body {
+    background: var(--bg-light);
+    color: var(--texto);
+    min-height: 100vh;
+    padding-top: 140px;
+  }
+  
+  /* ==========================================
+     HEADER / BARRA DE NAVEGACIÓN OSCURA
+     ================================---------- */
+  .admin-header {
+    background: var(--bg-dark);
+    color: white;
+    padding: 18px 40px 10px 40px; /* Ajustamos un poco el padding inferior */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Hace que los elementos fluyan verticalmente de forma ordenada */
+    align-items: center;    /* Centra horizontalmente todo el contenido del header */
+  }
+  
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+    gap: 20px;
+    padding-bottom: 5px;
+  }
+  
+  .header-top h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  
+  /* Buscador con efecto resplandor (glow) sobre fondo oscuro */
+  .search-bar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 30px !important;
+    padding: 6px 18px !important;
+    width: 380px !important;
+    height: 42px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
+    margin: 0 auto !important;
+  }
+  
+  .search-bar input,
+  .search-bar input#buscador {
+    border: none !important;
+    outline: none !important;
+    font-size: 0.95rem !important;
+    width: 100% !important;
+    background: transparent !important;
+    color: #ffffff !important;
+  }
+  
+  .search-bar input::placeholder {
+    color: #cbd5e1 !important;
+  }
+  
+  .search-icon,
+  .search-bar .btn-search-icon {
+    position: absolute !important;
+    right: 14px !important;
+    background: none !important;
+    border: none !important;
+    color: #cbd5e1 !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+  }
+
+  /* ==========================================
+   ESTILOS DE LA BARRA DE BÚSQUEDA PREDETERMINADA
+   ================================---------- */
+.search-bar,
+form.search-bar {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 30px !important;
+  padding: 6px 45px 6px 18px !important; /* Padding derecho para el botón/icono */
+  width: 380px !important;
+  height: 42px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3) !important;
+  margin: 0 auto !important;
+}
+
+.search-bar input,
+form.search-bar input#buscador {
+  border: none !important;
+  outline: none !important;
+  font-size: 0.95rem !important;
+  width: 100% !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+}
+
+.search-bar input::placeholder,
+form.search-bar input#buscador::placeholder {
+  color: #cbd5e1 !important;
+}
+
+/* Iconos y botones de búsqueda alineados al extremo derecho */
+.search-icon,
+.btn-search-icon {
+  position: absolute !important;
+  right: 14px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  color: #cbd5e1 !important;
+  font-size: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn-search-icon:hover {
+  color: #ffffff !important;
+}
+
+/* ==========================================
+   DESPLEGABLE DE SUGERENCIAS FLOTANTE
+   ================================---------- */
+#sugerencias-box.sugerencias-box {
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
+  left: 0 !important;
+  width: 100% !important;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+  z-index: 99999 !important;
+  display: none;
+  overflow: hidden !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+#sugerencias-box .sugerencia-item {
+  padding: 10px 16px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  color: #1e293b !important;
+  text-align: left !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+#sugerencias-box .sugerencia-item:last-child {
+  border-bottom: none !important;
+}
+
+#sugerencias-box .sugerencia-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+  
+  /* ==========================================
+  MENÚ DESLIZANTE / SELECTOR TIPO PÍLDORA
+  ================================---------- */
+.header-nav {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 12px 0 8px 0;
+}
+
+/* Contenedor principal de la píldora deslizante */
+
+/* Reemplazamos la estructura anterior de .header-nav por este diseño de píldora */
+.header-nav {
+ background-color: rgba(255, 255, 255, 0.08);
+ border: 1px solid rgba(255, 255, 255, 0.15);
+ border-radius: 9999px;
+ padding: 4px;
+ display: inline-flex;
+ gap: 4px;
+ margin: 10px auto 0 auto;
+ box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+ margin: 12px auto 8px auto !important;
+ width: fit-content;
+}
+
+.header-nav a {
+ background: transparent;
+ color: #cbd5e1;
+ text-decoration: none;
+ font-weight: 600;
+ font-size: 0.9rem;
+ padding: 8px 20px;
+ border-radius: 9999px;
+ border-bottom: none !important; /* Quitamos el subrayado anterior */
+ transition: all 0.3s ease;
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+}
+
+/* Elemento activo o al pasar el cursor (Píldora deslizante seleccionada) */
+.header-nav a:hover,
+.header-nav a.nav-active,
+.header-nav .nav-active {
+ background-color: rgba(244, 196, 48, 0.2); /* Fondo dorado sutil */
+ color: var(--amarillo) !important;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Opcional: Si tus iconos dentro del menú usan i o span */
+.header-nav a i,
+.header-nav a svg {
+ color: inherit;
+}
+
+  /* ==========================================
+     CONTENIDO PRINCIPAL
+     ================================---------- */
+  .admin-main {
+    padding: 20px;
+    margin-top: 0;
+  }
+  
+  .admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .admin-toolbar h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  
+  .btn-primary {
+    background: var(--verde);
+    color: white;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(76, 217, 100, 0.4);
+    transition: box-shadow 0.2s;
+    text-decoration: none !important;
+  }
+  
+  .btn-primary:hover {
+    box-shadow: 0 6px 14px rgba(76, 217, 100, 0.55);
+  }
+  
+  /* ==========================================
+     GRID Y TARJETAS DE UNIVERSIDADES 
+     (Estilo Logo Flotante)
+     ================================---------- */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 35px;
+    padding-top: 20px;
+  }
+  
+  .uni-card {
+    background: var(--gris-card);
+    border-radius: 16px;
+    padding: 45px 16px 18px 16px; /* Espacio superior para compensar el logo flotante */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+    margin-top: 20px;
+  }
+  
+  .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+  }
+  
+  .icon-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: filter 0.2s ease;
+  }
+  
+  .icon-btn:hover {
+    filter: brightness(1.15);
+  }
+  
+  .icon-delete {
+    background: var(--rojo);
+  }
+  
+  .icon-edit {
+    background: #f0a500;
+  }
+  
+  /* Logo flotante centrado en la parte superior de la tarjeta */
+  .card-logo {
+    width: 75px;
+    height: 75px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
+  }
+  
+  .card-logo img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    padding: 2px;
+  }
+  
+  .card-nombre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto);
+    min-height: 42px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  
+  /* Botón Carreras renovado (Naranja con icono de libro) */
+  .btn-outline,
+  .btn-carreras {
+    background-color: var(--btn-orange) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3) !important;
+    transition: background-color 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+  
+  .btn-outline:hover,
+  .btn-carreras:hover {
+    background-color: #d97706 !important;
+    color: white !important;
+  }
+  
+  /* ==========================================
+     CAJA DE PREDICCIONES / SUGERENCIAS FLOTANTE
+     ================================---------- */
+  div#sugerencias-box.sugerencias-box {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background-color: #ffffff !important;
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+    z-index: 99999 !important;
+    display: none;
+    overflow: hidden !important;
+    border: 1px solid #ccc !important;
+    border-top: none !important;
+    margin-top: 4px !important;
+  }
+  
+  div#sugerencias-box .sugerencia-item {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 16px !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    color: #222222 !important;
+    text-align: left !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #eee !important;
+    white-space: normal !important;
+  }
+  
+  div#sugerencias-box .sugerencia-item:last-child {
+    border-bottom: none !important;
+  }
+  
+  div#sugerencias-box .sugerencia-item:hover {
+    background-color: #eaf2f8 !important;
+    color: #0f4c81 !important;
+    font-weight: 600 !important;
+  }
+  
+  /* ==========================================
+     MODAL
+     ================================---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+  
+  .modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .modal-box {
+    background: white;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s ease;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .modal-header {
+    background: var(--bg-dark);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 14px 14px 0 0;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .modal-close:hover {
+    transform: rotate(90deg);
+  }
+  
+  .modal-body {
+    padding: 22px 24px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border 0.2s;
+    font-family: inherit;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #3b82f6;
+  }
+  
+  .form-group input[type="file"] {
+    padding: 8px;
+    background: #f9f9f9;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn-cancel {
+    background: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .btn-cancel:hover {
+    background: #cfcfcf;
+  }
