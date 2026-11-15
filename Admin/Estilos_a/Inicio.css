@@ -1,0 +1,237 @@
+/* Estilos específicos para la página de Inicio (Landing Page) */
+
+/* Resetea cualquier margen o relleno superior heredado de general.css */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+/* Navbar superior de bienvenida */
+.oepa-landing-nav {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    margin-top: 0 !important;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Contenedor principal del logo y texto en línea */
+.logo-marca {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio de separación entre el logo y el texto */
+}
+
+.logo-marca h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.logo-marca span {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.logo-min {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Bloque que apila verticalmente el H1 y el Span al lado de la imagen */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.logo-text span {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.btn-admin-nav {
+    background-color: #22c55e;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-admin-nav:hover {
+    background-color: #16a34a;
+}
+
+/* Sección Hero (Banner Principal) */
+.hero-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.badge-hero {
+    background-color: #e0e7ff;
+    color: #3730a3;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn-principal-cta {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-principal-cta:hover {
+    background-color: #1e293b;
+    transform: translateY(-2px);
+}
+
+.hero-image-container img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Sección Propósito / Features */
+.propposito-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.section-title h3 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.feature-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    text-align: left;
+    transition: transform 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+    font-size: 1.8rem;
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+.feature-card h4 {
+    font-size: 1.2rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Footer */
+.landing-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    margin-top: 80px;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .btn-principal-cta {
+        display: block;
+        text-align: center;
+    }
+}

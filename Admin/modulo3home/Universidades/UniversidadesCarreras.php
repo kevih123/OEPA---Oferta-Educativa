@@ -1,7 +1,7 @@
 <?php
 $idu = isset($_GET["idu"]) ? (int)$_GET["idu"] : 0;
 
-require '../conn.php';
+require '../../conn.php';
 
 $modalidadesFiltro = [
     'presencial' => 1,
@@ -62,16 +62,16 @@ mysqli_close($conectar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carreras universidad</title>
-    <link rel="stylesheet" href="../Estilos_a/general.css">
-    <link rel="stylesheet" href="../Estilos_a/Carrerasuni.css">
+    <link rel="stylesheet" href="../../Estilos_a/general.css">
+    <link rel="stylesheet" href="../../Estilos_a/Carrerasuni.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <?php include 'NavBar/NavBarUniversidades.php'; ?>
+    <?php include '../NavBar/NavBarUniversidades.php'; ?>
 
-    <?php include 'Modalmodalidades.php'; ?>
+    <?php include '../Modalmodalidades.php'; ?>
 
     <main class="admin-main">
 
@@ -95,7 +95,7 @@ mysqli_close($conectar);
             <?php else: ?>
 
                 <?php foreach ($carreras as $c): ?>
-                    <a href="DetalleCarrera.php?id_carrera=<?php echo $c['id_carrera']; ?>&id_universidad=<?php echo $idu; ?>&modalidad=<?php echo urlencode($modalidadActual); ?>" class="carrera-card-enlace">
+                    <a href="../DetalleCarrera.php?id_carrera=<?php echo $c['id_carrera']; ?>&id_universidad=<?php echo $idu; ?>&modalidad=<?php echo urlencode($modalidadActual); ?>" class="carrera-card-enlace">
                         <article class="carrera-card" data-id="<?php echo $c['id_carrera']; ?>">
 
                             <div class="card-actions"></div>

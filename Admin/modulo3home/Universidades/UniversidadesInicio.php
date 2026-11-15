@@ -1,5 +1,5 @@
 <?php
-require '../conn2.php';
+require '../../conn2.php';
 
 $modalidadesFiltro = [
     'presencial' => 1,
@@ -51,17 +51,17 @@ mysqli_close($conectar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador Universidad</title>
-    <link rel="stylesheet" href="../Estilos_a/general.css">
+    <link rel="stylesheet" href="../../Estilos_a/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <?php include 'NavBar/NavBarUniversidades.php'; ?>
+    <?php include '../NavBar/NavBarUniversidades.php'; ?>
 
-    <?php include 'Modalmodalidades.php'; ?>
+    <?php include '../Modalmodalidades.php'; ?>
 
-    <form method="get" action="Carrerasuni.php">
+    <form method="get" action="UniversidadesCarreras.php">
         <input type="hidden" name="modalidad" value="<?php echo htmlspecialchars($modalidadActual, ENT_QUOTES, 'UTF-8'); ?>">
 
         <main class="admin-main">
