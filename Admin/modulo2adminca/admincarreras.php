@@ -1,5 +1,5 @@
 <?php
-
+include '../validar_sesion.php';
 include '../conn.php';
 // consultas de carreras
 $instru = "SELECT 
