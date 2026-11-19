@@ -286,12 +286,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* para cerrar sesión */
-    document.getElementById("navSalir")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = "../login.php";
-    });
+    
 
     // Activar validaciones y combinación de precios para Agregar y Editar
     configurarValidacionYEnvio('formAgregar', 'error-agregar', 'freqPagoAgregar', 'montoPagoAgregar', 'paCombinadoAgregar');
     configurarValidacionYEnvio('formEditar', 'error-editar', 'freqPagoEditar', 'montoPagoEditar', 'paCombinadoEditar');
+});
+window.addEventListener("pageshow", function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
 });

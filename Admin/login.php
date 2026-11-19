@@ -1,8 +1,12 @@
 <?php
-// validacion.php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
-// Iniciar sesión (una sola vez)
-session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 
 // Conexión (tu include, no modificar)
 include 'conn.php';
@@ -48,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['admin_logged'] = true;
         $_SESSION['admin_user'] = $usuario; // o id real si lo tienes
 
-        header('Location: ../Admin/modulo1adminuni/inicioadmin.php');
+        header('Location: modulo1adminuni/inicioadmin.php');
         exit();
     }
 
@@ -127,6 +131,19 @@ if (isset($_SESSION['login_error'])) {
     </div>
 
     <script>
+            window.addEventListener("pageshow", function(event) {
+    const formulario = document.getElementById('loginForm');
+
+    if (formulario) {
+        formulario.reset();
+
+        formulario.querySelectorAll("input").forEach(input => {
+            if (input.type !== "submit" && input.type !== "button") {
+                input.value = "";
+            }
+        });
+    }
+});
     document.addEventListener('DOMContentLoaded', function() {
         function showModal(message, title) {
             var backdrop = document.getElementById('errorModalBackdrop');
