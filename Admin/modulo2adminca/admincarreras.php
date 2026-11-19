@@ -47,7 +47,7 @@ mysqli_close($conectar);
         <nav class="header-nav">
             <a href="../modulo1adminuni/inicioadmin.php">Universidades</a>
             <a href="admincarreras.php" class="nav-active">Carreras</a>
-            <a href="../login.php" id="navSalir">Cerrar sesión</a>
+            <a href="../salir.php" id="navSalir">Cerrar sesión</a>
         </nav>
     </header>
 

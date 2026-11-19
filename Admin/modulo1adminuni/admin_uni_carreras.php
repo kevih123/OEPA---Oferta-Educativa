@@ -112,7 +112,7 @@ mysqli_close($conectar);
         </div>
         <nav class="header-nav">
             <a href="inicioadmin.php" class="nav-active">Universidades</a>
-            <a href="../login.php">Cerrar sesión</a>
+            <a href="../salir.php">Cerrar sesión</a>
         </nav>
     </header>
 

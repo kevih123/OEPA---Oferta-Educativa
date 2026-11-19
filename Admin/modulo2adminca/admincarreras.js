@@ -148,8 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* cerrar sesion */
-    document.getElementById("navSalir")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = "../login.php";
-    });
+    
+});
+window.addEventListener("pageshow", function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
 });
