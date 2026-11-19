@@ -90,7 +90,7 @@ if (isset($_SESSION['login_error'])) {
     </style>
 </head>
 <body>
-    <a href="../Admin/modulo3home/Paginaprincipal.php" class="btn-regresar">&lt;&lt; Regresar</a>    
+    <a href="index.php" class="btn-regresar">&lt;&lt; Regresar</a>    
     <main class="login-container">
         <section class="login-card">
             <div class="login-header">

@@ -19,10 +19,10 @@
 </div>
 
 <nav class="header-nav">
-  <a href="Paginaprincipal.php">
+  <a href="Universidades/UniversidadesInicio.php">
     <i class="fas fa-university"></i> Universidades
   </a>
-  <a href="CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>" class="nav-active">
+  <a href="../CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>" class="nav-active">
     <i class="fas fa-graduation-cap"></i> Carreras
   </a>
 </nav>

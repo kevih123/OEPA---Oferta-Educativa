@@ -8,14 +8,14 @@
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
 
-        <a class="btn-primary" href="../login.php">¿Eres administrador?</a>
+        <a class="btn-primary" href="../../login.php" target="_blank" rel="noopener noreferrer">¿Eres administrador?</a>
     </div>
 
     <nav class="header-nav">
-        <a href="Paginaprincipal.php" class="nav-active">
+        <a href="Universidades/UniversidadesInicio.php" class="nav-active">
         <i class="fas fa-university"></i> Universidades
         </a>
-        <a href="CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>">
+        <a href="../CarrerasAreas.php?modalidad=<?php echo urlencode($modalidadActual); ?>">
         <i class="fas fa-graduation-cap"></i> Carreras
         </a>
     </nav>

@@ -29,7 +29,7 @@
 
             </div>
             <div class="nav-acciones">
-                <a href="login.php" class="btn-admin-nav">
+                <a href="login.php" class="btn-admin-nav" target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-user-shield"></i> ¿Eres administrador?
                 </a>
             </div>
