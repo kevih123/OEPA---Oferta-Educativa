@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="Estilos_a/general.css">
     <link rel="stylesheet" href="Estilos_a/Inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="Imagenes/oepa-logo-min.png">
+    <link rel="icon" type="image/png" href="Imagenes/logo-oepa.jpeg">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
     <header class="oepa-landing-nav">
         <div class="nav-container">
             <div class="logo-marca">
-                <img src="Imagenes/oepa-logo-min.png" class="logo-min" alt="Logo OEPA">
+                <img src="Imagenes/logo-oepa.jpeg" class="logo-min" alt="Logo OEPA">
                 
                 <!-- Contenedor para mantener el título y subtítulo juntos al lado del logo -->
                 <div class="logo-text">

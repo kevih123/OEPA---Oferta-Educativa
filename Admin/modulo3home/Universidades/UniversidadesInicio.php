@@ -59,8 +59,6 @@ mysqli_close($conectar);
 
     <?php include '../NavBar/NavBarUniversidades.php'; ?>
 
-    <?php include '../Modalmodalidades.php'; ?>
-
     <form method="get" action="UniversidadesCarreras.php">
         <input type="hidden" name="modalidad" value="<?php echo htmlspecialchars($modalidadActual, ENT_QUOTES, 'UTF-8'); ?>">
 

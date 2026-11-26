@@ -41,6 +41,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Error al registrar la carrera: " . mysqli_error($conectar);
     }
+
+    $modalidades = $_POST['modalidades'] ?? [];
+    $idsPermitidos = [1, 2, 3];
+
+    if (!is_array($modalidades) || count(array_intersect(array_map('intval', $modalidades), $idsPermitidos)) === 0) {
+        echo "<script>alert('Error: Debes seleccionar al menos una modalidad.'); window.history.back();</script>";
+        exit();
+    }
+
+    if (mysqli_query($conectar, $sql)) {
+        $id_nueva_relacion = mysqli_insert_id($conectar);
+
+        $stmtMod = mysqli_prepare(
+            $conectar,
+            "INSERT INTO universidades_carreras_modalidades (id_universidades_carreras, id_modalidad) VALUES (?, ?)"
+        );
+
+        foreach ($modalidades as $mod) {
+            $idMod = (int)$mod;
+            if (in_array($idMod, $idsPermitidos, true)) {
+                mysqli_stmt_bind_param($stmtMod, "ii", $id_nueva_relacion, $idMod);
+                mysqli_stmt_execute($stmtMod);
+            }
+        }
+        mysqli_stmt_close($stmtMod);
+
+        header("Location: admin_uni_carreras.php?id_universidad=$id_universidad");
+    } else {
+        echo "Error al registrar la carrera: " . mysqli_error($conectar);
+    }
 }
 mysqli_close($conectar);
 ?>

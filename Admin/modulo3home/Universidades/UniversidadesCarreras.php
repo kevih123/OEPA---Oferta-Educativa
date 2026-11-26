@@ -71,8 +71,6 @@ mysqli_close($conectar);
 
     <?php include '../NavBar/NavBarUniversidades.php'; ?>
 
-    <?php include '../Modalmodalidades.php'; ?>
-
     <main class="admin-main">
 
         <div class="admin-toolbar">

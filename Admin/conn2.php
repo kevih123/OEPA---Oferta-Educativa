@@ -1,7 +1,7 @@
 <?php
 
 $server = "localhost";
-$db     = "oepa2";
+$db     = "oepa3";
 $user   = "root";
 $pass   = "";
 

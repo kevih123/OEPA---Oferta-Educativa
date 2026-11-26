@@ -24,23 +24,27 @@ $nombre_universidad = $uni_info['nombre_institucion'];
 
 // 3. Obtener las carreras asignadas a esta universidad
 $sql_carreras_uni = "SELECT 
-                        uc.id_universidades_carreras,
-                        uc.id_carrera,
-                        c.nombre_carrera,
-                        a.nombre_area,
-                        uc.descripcion_general,
-                        uc.duracion,
-                        uc.plan_de_estudios,
-                        uc.turno,
-                        uc.perfil_ingreso,
-                        uc.perfil_egreso,
-                        uc.demanda,
-                        uc.cupo
-                     FROM universidades_carreras AS uc
-                     JOIN carreras AS c ON uc.id_carrera = c.id_carrera
-                     JOIN areas AS a ON c.id_area = a.id
-                     WHERE uc.id_universidad = $id_universidad
-                     ORDER BY c.nombre_carrera ASC";
+                    uc.id_universidades_carreras,
+                    uc.id_carrera,
+                    c.nombre_carrera,
+                    a.nombre_area,
+                    uc.descripcion_general,
+                    uc.duracion,
+                    uc.plan_de_estudios,
+                    uc.turno,
+                    uc.perfil_ingreso,
+                    uc.perfil_egreso,
+                    uc.demanda,
+                    uc.cupo,
+                    GROUP_CONCAT(DISTINCT ucm.id_modalidad ORDER BY ucm.id_modalidad ASC SEPARATOR ',') AS modalidades_ids
+                    FROM universidades_carreras AS uc
+                    JOIN carreras AS c ON uc.id_carrera = c.id_carrera
+                    JOIN areas AS a ON c.id_area = a.id
+                    LEFT JOIN universidades_carreras_modalidades AS ucm 
+                    ON uc.id_universidades_carreras = ucm.id_universidades_carreras
+                    WHERE uc.id_universidad = $id_universidad
+                    GROUP BY uc.id_universidades_carreras
+                    ORDER BY c.nombre_carrera ASC";
 $res_carreras_uni = mysqli_query($conectar, $sql_carreras_uni);
 
 $carreras_asignadas = [];
@@ -169,6 +173,7 @@ mysqli_close($conectar);
                                         data-egreso="<?php echo htmlspecialchars($c['perfil_egreso'] ?? ''); ?>"
                                         data-demanda="<?php echo htmlspecialchars($c['demanda']); ?>"
                                         data-cupo="<?php echo htmlspecialchars($c['cupo']); ?>"
+                                        data-modalidades="<?php echo htmlspecialchars($c['modalidades_ids'] ?? ''); ?>"
                                         style="background: #fef3c7; color: #d97706; padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;">
                                         <i class="fa-solid fa-pen"></i>
                                     </button>
@@ -233,6 +238,21 @@ mysqli_close($conectar);
                             <option value="Vespertino">Vespertino</option>
                             <option value="Ambos">Ambos</option>
                         </select>
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Modalidades disponibles</label>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc;">
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="1" class="chk-agregar-mod"> Presencial
+                            </label>
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="2" class="chk-agregar-mod"> En línea
+                            </label>
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="3" class="chk-agregar-mod"> Híbrida / A distancia
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group" style="grid-column: 1 / -1;">
@@ -304,6 +324,11 @@ mysqli_close($conectar);
                     document.getElementById('edit_demanda').value = btn.getAttribute('data-demanda');
                     document.getElementById('edit_cupo').value = btn.getAttribute('data-cupo');
 
+                    const modsRaw = (btn.getAttribute('data-modalidades') || '').split(',').map(m => m.trim());
+                    document.querySelectorAll('.chk-editar-mod').forEach(chk => {
+                        chk.checked = modsRaw.includes(chk.value);
+                    });
+
                     // Mostrar el modal
                     if (modalEditar) {
                         modalEditar.style.display = 'flex';
@@ -348,6 +373,15 @@ mysqli_close($conectar);
                         errorDiv.style.display = 'block';
                         inputPlan.focus();
                     }
+
+                    const modsMarcadas = formAgregar.querySelectorAll('input[name="modalidades[]"]:checked');
+                    if (modsMarcadas.length === 0) {
+                        e.preventDefault();
+                        errorDiv.textContent = "⚠️ Selecciona al menos una modalidad para la carrera.";
+                        errorDiv.style.display = 'block';
+                        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        return;
+                    }
                 });
             }
 
@@ -363,6 +397,15 @@ mysqli_close($conectar);
                         errorDiv.textContent = "⚠️ El campo 'Plan de Estudios' debe ser una URL válida (ej. https://ejemplo.com).";
                         errorDiv.style.display = 'block';
                         inputPlan.focus();
+                    }
+
+                    const modsMarcadas = formEditar.querySelectorAll('input[name="modalidades[]"]:checked');
+                    if (modsMarcadas.length === 0) {
+                        e.preventDefault();
+                        errorDiv.textContent = "⚠️ Selecciona al menos una modalidad para la carrera.";
+                        errorDiv.style.display = 'block';
+                        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        return;
                     }
                 });
             }
@@ -454,6 +497,21 @@ mysqli_close($conectar);
                             <option value="Vespertino">Vespertino</option>
                             <option value="Ambos">Ambos</option>
                         </select>
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Modalidades disponibles</label>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc;">
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="1" class="chk-editar-mod"> Presencial
+                            </label>
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="2" class="chk-editar-mod"> En línea
+                            </label>
+                            <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="modalidades[]" value="3" class="chk-editar-mod"> Híbrida / A distancia
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group" style="grid-column: 1 / -1;">

@@ -1,7 +1,14 @@
 <html>
 <header class="admin-header">
 <div class="header-top">
-  <h1>OEPA</h1>
+  <img src="../Imagenes/logo-oepa.jpeg" class="logo-min" alt="Logo OEPA">
+
+  <!-- Contenedor para mantener el título y subtítulo juntos al lado del logo -->
+  <div class="logo-text">
+      <h1>OEPA</h1>
+      <span>Oferta Educativa Pública Aguascalientes</span>
+  </div>
+
 
   <!-- El form actúa directamente como contenedor .search-bar -->
   <form action="ResultadoBusqueda.php" method="GET" class="search-bar">

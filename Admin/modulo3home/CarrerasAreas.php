@@ -32,9 +32,11 @@ if ($modalidadActual !== 'todas') {
 
     $query .= " WHERE EXISTS (
                     SELECT 1
-                    FROM carrera_modalidades AS cm
-                    WHERE cm.id_carrera = c.id_carrera
-                    AND cm.id_modalidad = $idModalidad
+                    FROM universidades_carreras_modalidades AS ucm
+                    INNER JOIN universidades_carreras AS uc
+                        ON ucm.id_universidades_carreras = uc.id_universidades_carreras
+                    WHERE uc.id_carrera = c.id_carrera
+                    AND ucm.id_modalidad = $idModalidad
                 )";
 }
 
